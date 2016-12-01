@@ -1,3 +1,6 @@
+user:
+    resource: "@KodifyUserBundle/Resources/config/routing.yml"
+
 kodify_blog:
     resource: "@KodifyBlogBundle/Resources/config/routing.yml"
     prefix:   /
