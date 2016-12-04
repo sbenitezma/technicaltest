@@ -55,7 +55,7 @@ class User extends BaseUser
     /**
      * Set authorUser
      *
-     * @param string $authorUser
+     * @param int $authorUser
      * @return User
      */
     public function setAuthorUser($authorUser)
@@ -68,7 +68,7 @@ class User extends BaseUser
     /**
      * Get authorUser
      *
-     * @return string
+     * @return integer
      */
     public function getAuthorUser()
     {

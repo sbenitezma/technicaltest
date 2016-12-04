@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
  * Author
  *
@@ -46,10 +47,12 @@ class Author extends AbstractBaseEntity
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($name)
     {
         $this->posts = new ArrayCollection();
         $this->comments = new ArrayCollection();
+
+        $this->setName($name);
     }
 
     public function __toString()
