@@ -1,36 +1,58 @@
 {% extends "KodifyBlogBundle::base.html.twig" %}
-
+{% block title %}Login to kodify blog!{% endblock %}
+{% block header %}
+    <header class="intro-header" style="background-image: url({{ asset('bundles/kodifyblog/img/home-bg.jpg') }})">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Login</h1>
+                        <hr class="small">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
 {% block content %}
     {% trans_default_domain 'FOSUserBundle' %}
-
     {% block fos_user_content %}
-
-    <div class="container">
-        <div class="login-container">
-                <div id="output"></div>
-                <div class="form-box">
-                    <form action="{{ path("fos_user_security_check") }}" method="post">
-                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-
-                        {# % if error %}
-                            <div>{{ error|trans }}</div>
-                        {% endif % #}
-                        {% include 'KodifyBlogBundle:Default:flashMessages.html.twig' %}
-
-                        {# <label for="username">{{ 'security.login.username'|trans }}</label> #}
-                        <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="username" />
-
-                        {# <label for="password">{{ 'security.login.password'|trans }}</label> #}
-                        <input type="password" id="password" name="_password" required="required" placeholder="password" />
-
-                        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-                        <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
-                        <br>
-                        <button class="btn btn-success btn-block" type="submit">{{ 'security.login.submit'|trans }}</button>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <form class="form-horizontal" action="{{ path("fos_user_security_check") }}" role="form" method="post">
+                        <div class="form-group">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+                            {% include 'KodifyBlogBundle:Default:flashMessages.html.twig' %}
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"><i class="fa fa-user"></i></label>
+                            <div class="col-md-10">
+                                <input type="text" id="username" name="_username" tabindex="1" class="form-control"
+                                       placeholder="Username" value="{{ last_username }}" required="required"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label"><i class="glyphicon glyphicon-lock"></i></label>
+                            <div class="col-md-10">
+                                <input type="password" id="password" name="_password" tabindex="1" class="form-control"
+                                       placeholder="Password" required="required"/>
+                            </div>
+                        </div>
+                        <div class="form-group text-center">
+                            <input type="checkbox" id="remember_me" tabindex="3" class="" name="_remember_me"
+                                   value="on"/>
+                            <label class="intro-header" for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" id="post_save" name="post[save]" class="btn btn-success btn">
+                                {{ 'security.login.submit'|trans }}
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
-    </div>
+        </div>
 
     {% endblock fos_user_content %}
 

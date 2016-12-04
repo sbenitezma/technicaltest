@@ -1,12 +1,11 @@
 {#Print the flashMessages#}
-{#{% for type, flashMessages in app.session.flashbag.all() %}#}
-    {#<div class="alert alert-{{ type }} fade in">#}
-        {#<button class="close" data-dismiss="alert" type="button">×</button>#}
-        {#<div class="flash-{{ type }}">#}
-            {#{% for flash in flashMessages %}#}
-                {#<strong>{{ flash.title }}</strong>#}
-                {#{{ flash.message }}#}
-            {#{% endfor %}#}
-        {#</div>#}
-    {#</div>    #}
-{#{% endfor %}#}
+{% for type, flashMessages in app.session.flashbag.all() %}
+    <div class="alert alert-{{ type }} fade in">
+        <div class="flash-{{ type }}">
+            {% for flash in flashMessages %}
+                <strong>{{ flash.title }}</strong>
+                {{ flash.message }}
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}
