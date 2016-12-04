@@ -1,7 +1,11 @@
-<div class="new-comment-area">
-    <div class="comment-form">
-        {{ form_start(form, {'attr': {'class': 'create-form'}}) }}
-        {{ form_widget(form) }}
-        {{ form_end(form) }}
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    <div class="new-comment-area">
+        <div class="comment-form">
+            {{ form_start(form, {'attr': {'class': 'create-form'}}) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
     </div>
-</div>
+{% else %}
+    <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+{% endif %}
