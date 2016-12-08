@@ -9,6 +9,7 @@ use Kodify\BlogBundle\Form\Type\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class CommentsController
@@ -38,17 +39,12 @@ class CommentsController extends Controller
 
         /** @var CommentCreateHandler $handler */
         $handler = $this->get('kodify.blog.create_comment');
-
-        if ($handler->process($request, $form)) {
-            //save success message to show it on post view
-            $request->getSession()->getFlashBag()->add('comment-success', 'Comment Created!');
-
-            //if everything goes well redirect to the comments area in the post
-            $viewPostUrl = $this->generateUrl('view_post', ['id' => $post->getId()]) . '#comments-area';
-
-            return $this->redirect($viewPostUrl);
+        $response = $handler->process($request, $form);
+        if ($response){
+            $result = json_decode($response->getContent());
+            $parameters['result'] = $result->status;
+            return new JsonResponse( $result );
         }
-
         // the form element should be passed to the view after validate it to show errors
         $parameters['form'] = $form->createView();
 

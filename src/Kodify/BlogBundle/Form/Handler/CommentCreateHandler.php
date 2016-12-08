@@ -6,6 +6,7 @@ namespace Kodify\BlogBundle\Form\Handler;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CommentCreateHandler
 {
@@ -31,17 +32,23 @@ class CommentCreateHandler
         }
 
         $form->handleRequest($request);
-
         if (($form->isSubmitted()) && ($form->isValid())) {
             $comment = $form->getData();
 
             $this->entityManager->persist($comment);
             $this->entityManager->flush();
 
-            return true;
+            $response = array(
+                'status' => 'success',
+                'content' => ''
+            );
+        }else{
+            $response = array(
+                'status' => 'error',
+                'content' => ''
+            );
         }
-
-        return false;
+        return new JsonResponse( $response );
     }
 
 }
