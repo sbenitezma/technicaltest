@@ -1,19 +1,22 @@
 home:
     path:     /
     defaults: { _controller: KodifyBlogBundle:Posts:index }
+# List Authors
 authors:
     path:     /authors
     defaults: { _controller: KodifyBlogBundle:Authors:index }
+# Create Posts
 create_post:
     path:     /posts/create
     defaults: { _controller: KodifyBlogBundle:Posts:create }
+# View Posts
 view_post:
     path:     /posts/{id}
     defaults: { _controller: KodifyBlogBundle:Posts:view }
+# Create Author (Using FOSUserBundle)
 create_author:
     path:     /create
     defaults: { _controller: KodifyUserBundle:Registration:register }
-
 # Comments
 create_comment:
     path:     /comments/create/{id}
