@@ -4,7 +4,7 @@ namespace Kodify\BlogBundle\Controller;
 
 use Kodify\BlogBundle\Entity\Comment;
 use Kodify\BlogBundle\Entity\Post;
-use Kodify\BlogBundle\Form\Handler\CommentCreateHandler;
+use Kodify\BlogBundle\Form\Handler\GeneralCreateHandler;
 use Kodify\BlogBundle\Form\Type\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,7 +37,7 @@ class CommentsController extends Controller
         );
         $parameters = [];
 
-        /** @var CommentCreateHandler $handler */
+        /** @var GeneralCreateHandler $handler */
         $handler = $this->get('kodify.blog.create_comment');
         $response = $handler->process($request, $form);
         if ($response){

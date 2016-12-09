@@ -8,6 +8,7 @@ use Kodify\BlogBundle\Form\Type\CommentType;
 use Kodify\BlogBundle\Form\Type\PostType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class PostsController
@@ -70,12 +71,13 @@ class PostsController extends Controller
 
         $parameters = [];
 
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $post = $form->getData();
-            $this->getDoctrine()->getManager()->persist($post);
-            $this->getDoctrine()->getManager()->flush();
-            $parameters['message'] = 'Post Created!';
+        /** @var GeneralCreateHandler $handler */
+        $handler = $this->get('kodify.blog.create_post');
+        $response = $handler->process($request, $form);
+        if ($response){
+            $result = json_decode($response->getContent());
+            $parameters['result'] = $result->status;
+            return new JsonResponse( $result );
         }
 
         // the form element should be passed to the view after validate it to show errors

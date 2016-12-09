@@ -2,11 +2,12 @@
 {% block content %}
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            {% include 'KodifyBlogBundle:Default:ajaxAlertMessages.html.twig' %}
             {% if message is defined %}
                 <div class="bg-primary">{{ message }}</div>
             {% endif %}
-            <div class="form">
-                {{ form_start(form) }}
+            <div class="form create-form">
+                {{ form_start(form, {'attr': {'class': 'create-form'}}) }}
                 {{ form_widget(form) }}
                 {{ form_end(form) }}
             </div>
